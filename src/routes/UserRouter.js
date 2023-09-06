@@ -1,0 +1,15 @@
+const express = require("express")
+const router = express.Router()
+const userController = require('../controller/UserController')
+const { authMiddelware, authUserMiddelware } = require("../middleware/authMiddelware")
+
+router.post('/sign-up', userController.createUser)
+router.post('/sign-in', userController.loginUser)
+router.post('/log-out', userController.logoutUser)
+router.put('/update-user/:id', authUserMiddelware, userController.updateUser)
+router.delete('/delete-user/:id', authMiddelware ,userController.deleteUser)
+router.post('/delete-users', authMiddelware ,userController.deleteUsers)
+router.get('/getAll', authMiddelware, userController.getAllUser)
+router.get('/get-detail/:id', authUserMiddelware ,userController.getDetailUser)
+router.post('/refresh-token', userController.refreshToken)
+module.exports = router
